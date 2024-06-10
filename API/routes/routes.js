@@ -70,7 +70,7 @@ router.post('/postfamily', async (req, res) => {
     const data = new familyModel({
         family_name: req.body.family_name,
         community: req.body.community,
-        housetype: req.body.houseType,
+        houseType: req.body.houseType,
         risk: req.body.risk
     });
 
