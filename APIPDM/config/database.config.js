@@ -1,4 +1,4 @@
-/*const Mongoose = require("mongoose");
+const Mongoose = require("mongoose");
 const debug = require("debug")("app:database");
 
 const dbhost = process.env.DBHOST || "localhost";
@@ -11,7 +11,7 @@ const dburi = process.env.DBURI || `mongodb://${dbhost}:${dbport}/${dbname}`;
  Connect to database method
  */
 
-/*const connect = async () => {
+const connect = async () => {
   try {
     await Mongoose.connect(dburi);
     debug("Conection to database started");
@@ -26,7 +26,7 @@ const dburi = process.env.DBURI || `mongodb://${dbhost}:${dbport}/${dbname}`;
  Desconnect to database method
  */
 
-/*const disconnect = async () => {
+const disconnect = async () => {
   try {
     await Mongoose.disconnect();
     debug("connection to database end");
@@ -38,4 +38,4 @@ const dburi = process.env.DBURI || `mongodb://${dbhost}:${dbport}/${dbname}`;
 module.exports = {
   connect,
   disconnect,
-};*/
+};
