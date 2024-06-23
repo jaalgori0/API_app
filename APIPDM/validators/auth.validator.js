@@ -12,7 +12,7 @@ validators.registerValidator = [
   body("name")
     .notEmpty()
     .withMessage("Name is required"),
-  body("lastName")
+  body("lastname")
     .notEmpty()
     .withMessage("Lastname is required"),
   body("email")

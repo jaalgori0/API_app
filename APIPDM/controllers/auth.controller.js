@@ -6,7 +6,7 @@ const controller = {};
 controller.register = async (req, res, next) => {
   try {
     //Obtener la info
-    const { username, email, password,telephoneNumber} = req.body;
+    const { username, name, lastname, email, password,telephoneNumber} = req.body;
     //Verifircar existencia de correo y usuario
     const user =
       await User.findOne({ $or: [{ username: username }, { email: email }] });
@@ -22,6 +22,8 @@ controller.register = async (req, res, next) => {
       email: email,
       password: password,
       roles: [ROLES.USER],
+      name: name,
+      lastname: lastname,
     });
 
     await newUser.save();
@@ -83,8 +85,8 @@ controller.login = async (req, res, next) => {
 
 controller.whoami = async (req, res, next) => {
   try {
-    const { _id, username, email,telephoneNumber, roles } = req.user;
-    return res.status(200).json({ _id, username, email,telephoneNumber, roles });
+    const { _id, username, name, lastname,email,telephoneNumber, roles } = req.user;
+    return res.status(200).json({ _id, username, name, lastname, email,telephoneNumber, roles });
   } catch (error) {
     next(error);
   }
