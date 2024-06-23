@@ -50,7 +50,7 @@ controller.saveTour = async (req, res, next) => {
 
 controller.findAllTours = async (req, res, next) => {
     try {
-        const tour = await Tour.find({ hidden: false })
+        const tour = await Tour.find({})
             .populate("user", "username email")
             .populate("comments.user", "username email");
 

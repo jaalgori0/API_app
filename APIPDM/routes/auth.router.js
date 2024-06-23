@@ -13,7 +13,7 @@ router.post("/register",
 );
 
 
-router.post("/login", authController.login);
+router.get("/login", authController.login);
 
 router.get("/whoami", authentication, authController.whoami);
 

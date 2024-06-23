@@ -16,9 +16,7 @@ validators.registerValidator = [
     .withMessage("Email format incorret"),
     body("telephoneNumber")
     .notEmpty()
-    .withMessage("telephoneNumber is required")
-    .isEmail()
-    .withMessage("telephoneNumber format incorret"),
+    .withMessage("telephoneNumber is required"),
   body("password")
     .notEmpty()
     .withMessage("Password is required")
