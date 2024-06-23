@@ -9,6 +9,12 @@ validators.registerValidator = [
     .withMessage("Username is required")
     .isLength({ min: 4, max: 32 })
     .withMessage("Username format incorrect"),
+  body("name")
+    .notEmpty()
+    .withMessage("Name is required"),
+  body("lastName")
+    .notEmpty()
+    .withMessage("Lastname is required"),
   body("email")
     .notEmpty()
     .withMessage("Email is required")
