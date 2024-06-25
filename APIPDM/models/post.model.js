@@ -33,41 +33,11 @@ const TourSchema = new Schema({
     type: String,
     required: true,
   },
-  
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  comments: {
-    type: [
-      {
-        user: {
-          type: Schema.Types.ObjectId,
-          ref: "User",
-          required: true,
-        },
-        content: {
-          type: String,
-          required: true,
-        },
-        timestamp: {
-          type: Date,
-          required: true,
-        },
-        history: {
-          type: [String],
-          default: [],
-        },
-      },
-    ],
-    default: [],
-  },
-
-
-
 }, { timestamps: true });
 
-
-
-module.exports = Mongoose.model("Tour",TourSchema);
+module.exports = Mongoose.model("Tour", TourSchema);

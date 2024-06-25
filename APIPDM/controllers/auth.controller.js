@@ -92,5 +92,36 @@ controller.whoami = async (req, res, next) => {
   }
 };
 
+controller.updateUser = async (req, res, next) => {
+  try {
+    const { _id } = req.user;  // Aquí obtienes el ID del usuario autenticado
+    const { username, email, password } = req.body;
+
+    const updateData = {};
+
+    if (username) updateData.username = username;
+    if (email) updateData.email = email;
+    if (password) {
+      const user = await User.findById(_id);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      const hashedPassword = user.encryptPassword(password);
+      updateData.hashedPassword = hashedPassword;
+      updateData.salt = user.salt;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(_id, updateData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+}
+
 
 module.exports = controller;
