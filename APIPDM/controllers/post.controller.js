@@ -5,48 +5,49 @@ const controller = {};
 
 
 controller.saveTour = async (req, res, next) => {
+  try {
+      const { title, description, image, duration, price, whaLink, mapLink } = req.body;
+      const { identifier } = req.params;
+      const { user } = req;
 
-
-    try {
-        const { title, description, image, duration, price, whaLink, mapLink } = req.body;
-        const { identifier } = req.params;
-        const { user } = req;
-
-
-
-        let tour = await Tour.findById(identifier);
-
-        if(!tour){
-          tour= new Tour();
-          tour["user"]=user._id;
-        }else{
-          if(!tour["user"].equals(user._id)){
-            return res.status(403).json({error:"This is not your post tour"})
+      let tour;
+      
+      // Si `identifier` está presente, intenta encontrar el tour por ID.
+      if (identifier) {
+          tour = await Tour.findById(identifier);
+          if (tour) {
+              // Verifica si el tour pertenece al usuario actual.
+              if (!tour.user.equals(user._id)) {
+                  return res.status(403).json({ error: "This is not your tour" });
+              }
           }
-        }
+      }
 
-        tour["title"] = title;
-        tour["description"] = description;
-        tour["image"] = image;
-        tour["duration"] = duration;
-        tour["price"] = price;
-        tour["whaLink"] = whaLink;
-        tour["mapLink"] = mapLink;
-    
+      // Si no se encuentra el tour, crea uno nuevo.
+      if (!tour) {
+          tour = new Tour({ user: user._id });
+      }
 
-        const tourSaved = await tour.save();
-        if (!tourSaved) {
-            return res.status(409).json({ error: "Error creating the tour" });
-        }
+      // Actualiza los campos del tour.
+      tour.title = title;
+      tour.description = description;
+      tour.image = image;
+      tour.duration = duration;
+      tour.price = price;
+      tour.whaLink = whaLink;
+      tour.mapLink = mapLink;
 
-        return res.status(201).json(tourSaved);
-    } catch (error) {
-        next(error);
+      // Guarda el tour en la base de datos.
+      const tourSaved = await tour.save();
+      if (!tourSaved) {
+          return res.status(409).json({ error: "Error creating the tour" });
+      }
 
-    }
-
-
-}
+      return res.status(201).json(tourSaved);
+  } catch (error) {
+      next(error);
+  }
+};
 
 controller.findAllTours = async (req, res, next) => {
     try {

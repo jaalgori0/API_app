@@ -18,15 +18,19 @@ validators.createTourValidator = [
         .withMessage("Description maximum length is 280 characters"),
     body("image")
         .notEmpty()
-        .withMessage("Image is required")
-        .isURL()
-        .withMessage("Image must be a base an URL"),
-    body("duration").notEmpty().withMessage("Duration state is required"),
-    body("price").notEmpty().withMessage("Price is required").isNumeric().withMessage("Price must be a number"),
+        .withMessage("Image is required"),
+    body("duration")
+        .notEmpty()
+        .withMessage("Duration state is required"),
+    body("price")
+        .notEmpty()
+        .withMessage("Price is required")
+        .isNumeric()
+        .withMessage("Price must be a number"),
     body("whaLink")
-    .notEmpty()
-    .isURL()
-    .withMessage("whaLink is required"),
+        .notEmpty()
+        .isURL()
+        .withMessage("whaLink is required"),
     body("mapLink")
         .notEmpty()
         .isURL()
