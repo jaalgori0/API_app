@@ -4,22 +4,23 @@ const Tour = require("../models/post.model");
 const commentController = {};
 
 commentController.createComment = async (req, res) => {
-  const { tourId, content } = req.body;
-  const { user } = req;
+  const { content } = req.body;
+  const { idtour } = req.params;
+  const { user } = req; // Obteniendo el usuario autenticado del middleware
 
-  if (!tourId || !content) {
-    return res.status(400).json({ error: "Tour ID and content are required" });
+  if (!idtour || !content || !user) {
+    return res.status(400).json({ error: "User, Tour ID, and content are required" });
   }
 
   try {
-    const tour = await Tour.findById(tourId);
+    const tour = await Tour.findById(idtour);
     if (!tour) {
       return res.status(404).json({ error: "Tour not found" });
     }
 
     const comment = new Comment({
       user: user._id,
-      tour: tourId,
+      tour: idtour,
       content: content,
     });
 

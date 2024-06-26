@@ -5,12 +5,10 @@ const CommentSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
   tour: {
     type: Schema.Types.ObjectId,
     ref: "Tour",
-    required: true,
   },
   content: {
     type: String,
@@ -19,7 +17,6 @@ const CommentSchema = new Schema({
   timestamp: {
     type: Date,
     default: Date.now,
-    required: true,
   },
 }, { timestamps: true });
 
