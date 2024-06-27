@@ -26,6 +26,7 @@ const TourController = require("../controllers/post.controller");
 
 // Rutas para tour
 router.get("/", TourController.findAllTours);
+
 router.get(
   "/own",
   authentication,

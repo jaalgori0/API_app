@@ -4,10 +4,6 @@ const validators = () => { };
 const { body, param } = require("express-validator");
 
 validators.createTourValidator = [
-    param("identifier")
-        .optional()
-        .isMongoId()
-        .withMessage("Identifier must be a Mongo ID"),
     body("title")
         .notEmpty()
         .withMessage("Title is required"),

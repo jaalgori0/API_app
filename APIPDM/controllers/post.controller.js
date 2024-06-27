@@ -50,16 +50,23 @@ controller.saveTour = async (req, res, next) => {
 };
 
 controller.findAllTours = async (req, res, next) => {
-    try {
-        const tour = await Tour.find({})
-            .populate("user", "username email")
-            .populate("comments.user", "username email");
+  try {
+      const tours = await Tour.find({})
+          .populate("user", "username email")
+          .populate({
+              path: 'comments',
+              populate: {
+                  path: 'user',
+                  select: 'username email'
+              }
+          });
 
-        return res.status(200).json({ tour });
-    } catch (error) {
-        next(error);
-
-    }
+      return res.status(200).json(tours);
+  } catch (error) {
+      console.error("Error fetching tours:", error); // Log the error for debugging
+      res.status(500).json({ error: 'Failed to fetch tours' });
+      next(error);
+  }
 }
 
 controller.finOneTourById = async (req, res, next) => {
