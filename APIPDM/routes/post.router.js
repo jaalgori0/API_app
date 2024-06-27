@@ -42,7 +42,7 @@ router.get("/:identifier",
 );
 
 router.post(
-  ["/", "/:identifier"],
+  "/",
   authentication,
   authorization(ROLES.USER),
   createTourValidator,
